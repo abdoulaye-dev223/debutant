@@ -1,0 +1,27 @@
+
+name: CI - Validation HTML
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Récupérer le code
+        uses: actions/checkout@v4
+
+      - name: Vérifier que index.html existe
+        run: |
+          if [ -f index.html ]; then
+            echo "✅ index.html trouvé"
+          else
+            echo "❌ index.html manquant"
+            exit 1
+          fi
+
+      - name: Afficher le contenu du fichier
+        run: cat index.html
